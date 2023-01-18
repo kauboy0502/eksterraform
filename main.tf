@@ -9,11 +9,22 @@ terraform {
       source = "hashicorp/kubernetes"
       version = "2.16.1"
     }
+
+    random = {
+      source = "hashicorp/random"
+      version = "3.4.3"
+    }
   }
 }
 
 provider "aws" {
   region = "us-east-1"
+   default_tags {
+    tags = {
+      Owner                                           = "Kaustubh K"
+      "kubernetes.io/cluster/${var.clustername}" = "owned"
+    }
+}
 }
 
 provider "kubernetes" {
@@ -26,24 +37,55 @@ provider "kubernetes" {
   }
 }
 
+provider "helm" {
+  kubernetes {
+    host                   = module.eks.endpoint
+    cluster_ca_certificate = base64decode(module.eks.kubeconfig-certificate-authority-data)
+    exec {
+      api_version = "client.authentication.k8s.io/v1beta1"
+      args        = ["eks", "get-token", "--cluster-name", module.eks.cluster_name]
+      command     = "aws"
+    }
+  }
+}
 
-module "vpckk" {
+provider "random" {
+  
+}
+
+
+
+
+module "vpc" {
   source = "./modules/vpc"
 
 }
 
 module "eks" {
   source = "./modules/eks"
-  pubsub = module.vpckk.pubsubnets
-  prisub = module.vpckk.prisubnets
+  pubsub = module.vpc.pubsubnets
+  prisub = module.vpc.prisubnets
   depends_on = [
-    module.vpckk
+    module.vpc
   ]
 }
 
 module "k8s"{
   source = "./modules/k8s"
   depends_on = [
-    module.eks
+    module.eks,
+    module.rds
   ]
 }
+
+module "rds" {
+  source = "./modules/rds"
+  sgs=module.vpc.security_group_ic
+  dbsubgrp = module.vpc.prisubnets
+  depends_on = [
+    module.vpc
+    
+  ]
+  
+}
+
