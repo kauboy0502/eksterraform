@@ -1,40 +1,32 @@
-resource "kubernetes_namespace" "myns" {
-metadata {
-  name = "myapp"
-}
-    
-  }
-
-
-resource "kubernetes_deployment" "nginx-deployment" {
+resource "kubernetes_deployment" "apache-deployment" {
   metadata {
-    name = "front-end-app"
+    name = "back-end-app"
     labels = {
-      app = "frontendapp"
+      app = "backendapp"
     }
     namespace = kubernetes_namespace.myns.metadata.0.name
   }
 
   spec {
-    replicas = var.nginx-replicas
+    replicas = var.http-replicas
 
     selector {
       match_labels = {
-        app = "frontendapp"
+        app = "backendapp"
       }
     }
 
     template {
       metadata {
         labels = {
-          app = "frontendapp"
+          app = "backendapp"
         }
       }
 
       spec {
         container {
-          image = "nginx:latest"
-          name  = "nginx-app"
+          image = "apache:latest"
+          name  = "apache-app"
 
           resources {
             limits = {
@@ -48,7 +40,7 @@ resource "kubernetes_deployment" "nginx-deployment" {
           }
         }
         node_selector = {
-          "node-group" = "public"
+          "node-group" = "private"
         }
        }
     }
@@ -56,14 +48,17 @@ resource "kubernetes_deployment" "nginx-deployment" {
   }
 }
 
-resource "kubernetes_service" "front-end-svc" {
+resource "kubernetes_service" "back-end-svc" {
   metadata {
-    name = "front-end-app-svc"
+    name = "back-end-app-lb-svc"
     namespace = kubernetes_namespace.myns.metadata.0.name
+    annotations = {
+      "service.beta.kubernetes.io/aws-load-balancer-scheme" = "internal"
+    }
   }
   spec {
     selector = {
-      app = kubernetes_deployment.nginx-deployment.metadata.0.labels.app
+      app = kubernetes_deployment.apache-deployment.metadata.0.labels.app
     }
     session_affinity = "ClientIP"
     port {
@@ -71,9 +66,9 @@ resource "kubernetes_service" "front-end-svc" {
       target_port = 80
     }
 
-    type = "ClusterIP"
+    type = "LoadBalancer"
   }
   depends_on = [
-    kubernetes_deployment.nginx-deployment
+    kubernetes_deployment.apache-deployment
   ]
 }
