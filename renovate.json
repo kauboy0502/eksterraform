@@ -18,7 +18,7 @@
         "repology"
       ],
     
-      "matchUpdateTypes": ["major"],
+      "matchUpdateTypes": ["minor"],
     
      
       "packagePatterns": [
