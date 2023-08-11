@@ -17,9 +17,10 @@
       "datasources": [
         "repology"
       ],
-     "matchUpdateTypes": ["major"],
-     "enabled": false 
-    ,
+      {
+    "matchPackageNames": ["angular"],
+      "allowedVersions": "<=1.5"
+    },
       "packagePatterns": [
         "^debian_stable/"
       ],
