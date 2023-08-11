@@ -18,7 +18,7 @@
         "repology"
       ],
     "matchPackageNames": ["nodejs"],
-    "allowedVersions": "<17"  ,
+    "allowedVersions": "<17.0.0"  ,
      
       "packagePatterns": [
         "^debian_stable/"
