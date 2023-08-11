@@ -22,7 +22,6 @@
       "packagePatterns": [
         "^debian_stable/"
       ],
-      "separateMajorMinor": false,
       "groupName": "debian packages",
       "groupSlug": "debian"
     }
