@@ -17,9 +17,8 @@
       "datasources": [
         "repology"
       ],
-    "matchUpdateTypes": ["major"],
-     "enabled": false , 
     "matchPackageNames": ["nodejs"],
+    "allowedVersions": "<17.*"  ,
      
       "packagePatterns": [
         "^debian_stable/"
