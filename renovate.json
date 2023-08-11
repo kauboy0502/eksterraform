@@ -5,8 +5,7 @@
   ],
   "packageRules": [
     {
-      "matchUpdateTypes": ["minor"],
-      "labels": ["UPDATE-MINOR"]
+      "matchUpdateTypes": ["minor"]
     }
   ],
   "regexManagers": [
