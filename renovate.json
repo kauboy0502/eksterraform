@@ -18,8 +18,8 @@
         "repology"
       ],
       {
-    "matchPackageNames": ["angular"],
-      "allowedVersions": "<=1.5"
+    "matchPackageNames": ["nodejs"],
+      "allowedVersions": "<17.0.0"
     },
       "packagePatterns": [
         "^debian_stable/"
