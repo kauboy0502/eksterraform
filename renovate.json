@@ -3,6 +3,12 @@
   "extends": [
     "config:base"
   ],
+  "packageRules": [
+    {
+      "matchUpdateTypes": ["minor"],
+      "labels": ["UPDATE-MINOR"]
+    }
+  ],
   "regexManagers": [
     {
       "fileMatch": ["^Dockerfile$"],
