@@ -17,7 +17,7 @@
       "datasources": [
         "repology"
       ],
-    "matchUpdateTypes": ["minor","patch"],
+    
       "separateMinorPatch" : true,
     
      
