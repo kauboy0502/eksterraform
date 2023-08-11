@@ -17,7 +17,7 @@
       "datasources": [
         "repology"
       ],
-    "matchUpdateTypes": ["major", "minor"],
+    "matchUpdateTypes": ["minor"],
      "enabled": false , 
     "matchPackageNames": ["nodejs"],
      
