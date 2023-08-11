@@ -17,7 +17,7 @@
       "datasources": [
         "repology"
       ],
-    "UpdateTypes": ["major"],
+    "updateTypes": ["major"],
     "enabled": false,
      
       "packagePatterns": [
