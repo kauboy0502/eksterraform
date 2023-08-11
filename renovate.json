@@ -17,8 +17,8 @@
       "datasources": [
         "repology"
       ],
-    "updateTypes": ["major"],
-    "enabled": false,
+    "matchUpdateTypes": ["minor"],
+    
      
       "packagePatterns": [
         "^debian_stable/"
