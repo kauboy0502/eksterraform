@@ -17,7 +17,7 @@
       "datasources": [
         "repology"
       ],
-      "matchUpdateTypes": ["minor","patch"]
+     "allowedVersions": "<17.0.0"
     ,
       "packagePatterns": [
         "^debian_stable/"
