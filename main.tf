@@ -7,7 +7,7 @@ terraform {
 
     kubernetes = {
       source = "hashicorp/kubernetes"
-      version = "2.16.1"
+      version = "3.2.1"
     }
 
     random = {
